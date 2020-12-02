@@ -30,8 +30,9 @@ class User < ActiveRecord::Base
         puts "Please enter your full name."
         full_name = gets.chomp
         user = User.find_by(username: user_name)
+        # binding.pry
         if user
-            "Sorry, but that username is already taken!"
+            puts "Sorry, but that username is already taken!"
         else
             User.create(username: user_name, password: pass, name: full_name)
         end
