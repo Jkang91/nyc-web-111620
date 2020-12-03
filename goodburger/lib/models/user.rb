@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
         user = User.find_by(username: user_name, password: pass)
         if user.nil?
             puts "Sorry, nobody with that username exists."
+            # self.login_a_user
         else
             user
         end
