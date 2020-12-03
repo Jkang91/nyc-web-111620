@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
             puts "Sorry, nobody with that username exists."
         else
             user
+            # Application.main_menu
         end
     end
 
@@ -35,6 +36,8 @@ class User < ActiveRecord::Base
             puts "Sorry, but that username is already taken!"
         else
             User.create(username: user_name, password: pass, name: full_name)
+            system 'clear'
+            User.login_a_user
         end
     end
 
@@ -55,7 +58,7 @@ class User < ActiveRecord::Base
 
     def food_current_order
         current_order.food_orders.each do |food_order|
-            puts "#{food_order.id}) #{food_order.food.name}"
+            puts "#{food_order.food.name} - $#{food_order.food.price}"
         end
     end
 
@@ -78,17 +81,8 @@ class User < ActiveRecord::Base
     def favorite_food
         array = self.past_orders.map {|past_order| past_order.foods}.flatten
         array_2 = array.map {|food| food.name}
-        # array_2.max_by {|food| array_2.count(food)}
-        fav_food = []
-        array_2.each do |food|
-            max_count = 0
-            if max_count < array_2.count(food) 
-                max_count = array_2.count(food)
-                fav_food << food
-            end 
-        end
-        puts "Your favorite food(s):" 
-        puts fav_food.join("\n") 
+        fav_food = array_2.max_by {|food| array_2.count(food)}
+        puts "Your favorite food is #{fav_food}!" 
     end
     
     
