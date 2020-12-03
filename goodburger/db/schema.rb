@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_194220) do
+ActiveRecord::Schema.define(version: 2020_12_03_204141) do
 
   create_table "food_orders", force: :cascade do |t|
     t.integer "order_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_194220) do
     t.string "username"
     t.string "password"
     t.string "name"
+    t.boolean "rewards_member", default: false
   end
 
 end

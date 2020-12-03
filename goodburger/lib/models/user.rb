@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
             puts "Sorry, nobody with that username exists."
         else
             user
-            # Application.main_menu
         end
     end
 
@@ -31,9 +30,10 @@ class User < ActiveRecord::Base
         puts "Please enter your full name."
         full_name = gets.chomp
         user = User.find_by(username: user_name)
-        # binding.pry
         if user
             puts "Sorry, but that username is already taken!"
+            sleep 2
+            self.register_a_user
         else
             User.create(username: user_name, password: pass, name: full_name)
             system 'clear'
@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
         self.past_orders.each do |past_order|
             sum += past_order.total_price
         end
-        sum
+        sum.round(2)
     end
 
     def total_calories_consumed_ever
@@ -82,7 +82,6 @@ class User < ActiveRecord::Base
         array = self.past_orders.map {|past_order| past_order.foods}.flatten
         array_2 = array.map {|food| food.name}
         fav_food = array_2.max_by {|food| array_2.count(food)}
-        puts "Your favorite food is #{fav_food}!" 
     end
     
     
@@ -91,6 +90,9 @@ class User < ActiveRecord::Base
         self.current_order.update(purchased: true)
     end
 
+    def make_rewards_member
+        self.rewards_member = true
+    end
 
     #DESTROY
     def cancel_current_order
@@ -100,5 +102,4 @@ class User < ActiveRecord::Base
     def remove_food_from_current_order(food_order_id)
         FoodOrder.destroy(food_order_id)
     end
-    
 end

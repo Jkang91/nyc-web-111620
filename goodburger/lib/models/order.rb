@@ -10,5 +10,4 @@ class Order < ActiveRecord::Base
     def total_calories
         self.foods.sum(:calories)
     end
-        
 end

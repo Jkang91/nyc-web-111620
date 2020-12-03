@@ -10,7 +10,7 @@ user_or_nil = application.user_login_or_register
 
 application.user = user_or_nil
 
-application.add_food
+application.main_menu
 
 # until user_or_nil
 #     system "clear"
