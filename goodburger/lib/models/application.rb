@@ -19,8 +19,8 @@ class Application
         end
     end
 
-   def login_sequence
-    system 'clear'
+    def login_sequence
+        system 'clear'
         user = User.login_a_user
         if user == nil
             puts "Sorry, nobody with that username exists."
