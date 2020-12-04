@@ -20,12 +20,14 @@ class Application
 
    def login_sequence
     User.login_a_user
-        if user.nil?
-            prompt.select ("Would you like to register?") do |menu|
-                menu.choice "Yes", -> {register_sequence}
-                menu.choice "No", -> {exit_app}
-            end
-        end
+        # if user
+        #     main_menu
+        # else user.nil?
+        #     prompt.select ("Would you like to register?") do |menu|
+        #         menu.choice "Yes", -> {register_sequence}
+        #         menu.choice "No", -> {exit_app}
+        #     end
+        # end
    end
    
    def register_sequence
