@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
     has_many :orders
 
     def self.login_a_user
-        puts "Welcome to Good Burger, home of the Good Burger!"
+        puts "Welcome to Good Burger, Home of the Good Burger!"
         sleep 2
         puts "Let's log you in!"
         sleep 2
@@ -11,15 +11,10 @@ class User < ActiveRecord::Base
         puts "What is your password?"
         pass = gets.chomp
         user = User.find_by(username: user_name, password: pass)
-        if user.nil?
-            puts "Sorry, nobody with that username exists."
-        else
-            user
-        end
     end
 
     def self.register_a_user
-        puts "Welcome to Good Burger, home of the Good Burger!"
+        puts "Welcome to Good Burger, Home of the Good Burger!"
         sleep 2
         puts "Let's get you registered!"
         sleep 2
@@ -32,7 +27,8 @@ class User < ActiveRecord::Base
         user = User.find_by(username: user_name)
         if user
             puts "Sorry, but that username is already taken!"
-            sleep 2
+            sleep 3
+            system 'clear'
             self.register_a_user
         else
             User.create(username: user_name, password: pass, name: full_name)
@@ -65,9 +61,24 @@ class User < ActiveRecord::Base
     def total_amount_spent_ever
         sum = 0
         self.past_orders.each do |past_order|
-            sum += past_order.total_price
+            sum += past_order.order_total
         end
-        sum.round(2)
+        sum
+        # sum = 0
+        # sum_2 = 0
+        # if rewards_member == false || past_orders.length < 10
+        #     self.past_orders.each do |past_order|
+        #         sum += past_order.total_price
+        #     end
+        #     sum
+        # else 
+        #     self.past_orders.each do |past_order|
+        #         sum_2 += past_order.total_price_with_discount
+        #     end
+        #     sum_2
+        # end
+        # total_sum = sum + sum_2
+        # total_sum.round(2)
     end
 
     def total_calories_consumed_ever
@@ -87,7 +98,11 @@ class User < ActiveRecord::Base
     
     #UPDATE
     def purchase_current_order
-        self.current_order.update(purchased: true)
+        if rewards_member
+            self.current_order.update(purchased: true, order_total: self.current_order.total_price_with_discount)
+        else
+            self.current_order.update(purchased: true, order_total: self.current_order.total_price)
+        end
     end
 
     def make_rewards_member

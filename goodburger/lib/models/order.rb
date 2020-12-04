@@ -7,6 +7,11 @@ class Order < ActiveRecord::Base
         self.foods.sum(:price)
     end
 
+    def total_price_with_discount
+        var = total_price * 0.90
+        var.round(2)
+    end
+
     def total_calories
         self.foods.sum(:calories)
     end
