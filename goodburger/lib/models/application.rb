@@ -155,6 +155,8 @@ class Application
                 end
                 menu.choice "Main Menu", -> {main_menu}
             end
+            puts "Your item has been removed."
+            sleep 2
         end
         main_menu
     end
