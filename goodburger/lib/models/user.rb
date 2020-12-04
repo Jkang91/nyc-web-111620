@@ -64,21 +64,6 @@ class User < ActiveRecord::Base
             sum += past_order.order_total
         end
         sum
-        # sum = 0
-        # sum_2 = 0
-        # if rewards_member == false || past_orders.length < 10
-        #     self.past_orders.each do |past_order|
-        #         sum += past_order.total_price
-        #     end
-        #     sum
-        # else 
-        #     self.past_orders.each do |past_order|
-        #         sum_2 += past_order.total_price_with_discount
-        #     end
-        #     sum_2
-        # end
-        # total_sum = sum + sum_2
-        # total_sum.round(2)
     end
 
     def total_calories_consumed_ever

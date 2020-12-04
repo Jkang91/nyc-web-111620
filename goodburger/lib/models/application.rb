@@ -70,20 +70,18 @@ class Application
     def add_food
         system 'clear'
         prompt.select("Please select the food item you'd like to add to your order.") do |menu|
+            menu.choice "Main Menu", -> {main_menu}
             Food.all.select do |food|
                 menu.choice "#{food.name} - $#{food.price}", -> {add_food_sequence(food)}
             end
-            # menu.choice "#{Food.find(1).name} - $#{Food.find(1).price}", -> {add_food_sequence(Food.find(1))}
-            # menu.choice "#{Food.find(2).name} - $#{Food.find(2).price}", -> {add_food_sequence(Food.find(2))}
-            # menu.choice "#{Food.find(3).name} - $#{Food.find(3).price}", -> {add_food_sequence(Food.find(3))}
-            # menu.choice "#{Food.find(4).name} - $#{Food.find(4).price}", -> {add_food_sequence(Food.find(4))}
-            # menu.choice "Add Another Item", -> {add_food}
             menu.choice "Main Menu", -> {main_menu}
         end
     end
 
     def add_food_sequence(food)
         user.add_food_to_current_order(food)
+        puts "You've added #{food.name} to your order."
+        sleep 2
         add_food
     end
 
@@ -92,14 +90,14 @@ class Application
         if user.current_order.foods == []
             puts "You have zero items in your current order." 
             puts "Please select 'Add Food Item to Current Order' to add items to your order."
-            sleep 5
-            main_menu
+            prompt.select (" ") do |menu|
+                menu.choice "Main Menu", -> {main_menu}
+            end
         else
             user.food_current_order
             if user.rewards_member || user.past_orders.length >= 10
                 user.rewards_member = true
                 puts "Congrats! As a Good Burger Rewards Member, you get 10% off all orders."
-                # puts "Your total amount is $#{(user.current_order.total_price * 0.90).round(2)}."
                 puts "Your total amount is $#{user.current_order.total_price_with_discount}."
                 prompt.select ("Would you like to place your order?") do |menu|
                     menu.choice "Yes", -> {purchasing_order}
@@ -155,7 +153,7 @@ class Application
                 user.current_order.food_orders.select do |food_order|
                     menu.choice "#{food_order.food.name}", -> {user.remove_food_from_current_order(food_order.id)}
                 end
-                menu.choice "Exit", -> {main_menu}
+                menu.choice "Main Menu", -> {main_menu}
             end
         end
         main_menu
@@ -165,14 +163,13 @@ class Application
         system 'clear'
         if user.past_orders.length == 0
             puts "Place an order to start seeing your Good Burger stats!"
-            sleep 5
-            main_menu
         else
             puts "Your favorite food is #{user.favorite_food}!"
             puts "You have eaten #{user.total_calories_consumed_ever} total calories at Good Burger! Congrats, Fatty!"
             puts "I can't believe you've spent $#{user.total_amount_spent_ever.round(2)} at Good Burger all-time! Better take out a loan!"
-            sleep 8
-            main_menu
+        end
+        prompt.select (" ") do |menu|
+            menu.choice "Main Menu", -> {main_menu}
         end
     end
     
@@ -189,7 +186,8 @@ class Application
                 puts "Total: $#{order.order_total}"
             end
         end
-        sleep 5
-        main_menu
+        prompt.select (" ") do |menu|
+            menu.choice "Main Menu", -> {main_menu}
+        end
     end
 end 
