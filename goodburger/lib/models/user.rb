@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
     has_many :orders
 
     def self.login_a_user
-        puts "Welcome to Good Burger, Home of the Good Burger!"
+        puts "Welcome to GoodBurger, Home of the GoodBurger!"
         sleep 2
         puts "Let's log you in!"
         sleep 2
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     end
 
     def self.register_a_user
-        puts "Welcome to Good Burger, Home of the Good Burger!"
+        puts "Welcome to GoodBurger, Home of the GoodBurger!"
         sleep 2
         puts "Let's get you registered!"
         sleep 2
@@ -32,8 +32,6 @@ class User < ActiveRecord::Base
             self.register_a_user
         else
             User.create(username: user_name, password: pass, name: full_name)
-            system 'clear'
-            User.login_a_user
         end
     end
 
@@ -78,6 +76,12 @@ class User < ActiveRecord::Base
         array = self.past_orders.map {|past_order| past_order.foods}.flatten
         array_2 = array.map {|food| food.name}
         fav_food = array_2.max_by {|food| array_2.count(food)}
+    end
+
+    def orders_away_from_rewards
+        if past_orders.length < 10 && !rewards_member
+            puts "You are only #{10 - past_orders.length} orders away from becoming a GoodBurger Rewards Member! Keep ordering to earn 10% off all future orders!"
+        end
     end
     
     

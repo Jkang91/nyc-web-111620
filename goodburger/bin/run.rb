@@ -10,7 +10,10 @@ user_or_nil = application.user_login_or_register
 
 application.user = user_or_nil
 
-application.main_menu
+if application.user
+    application.main_menu
+end
+
 
 # until user_or_nil
 #     system "clear"
