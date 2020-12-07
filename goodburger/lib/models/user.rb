@@ -1,27 +1,24 @@
+require 'highline/import'
 class User < ActiveRecord::Base
     has_many :orders
 
     def self.login_a_user
-        puts "Welcome to GoodBurger, Home of the GoodBurger!"
-        sleep 2
         puts "Let's log you in!"
-        sleep 2
         puts "What is your username?"
         user_name = gets.chomp
-        puts "What is your password?"
-        pass = gets.chomp
+        # puts "What is your password?"
+        # pass = gets.chomp
+        pass = ask("What is your password?") {|q| q.echo=("*")}
         user = User.find_by(username: user_name, password: pass)
     end
 
     def self.register_a_user
-        puts "Welcome to GoodBurger, Home of the GoodBurger!"
-        sleep 2
         puts "Let's get you registered!"
-        sleep 2
         puts "Please enter a username."
         user_name = gets.chomp
-        puts "Please enter a password."
-        pass = gets.chomp
+        # puts "Please enter a password."
+        # pass = gets.chomp
+        pass = ask("Please enter a password") {|q| q.echo=("*")}
         puts "Please enter your full name."
         full_name = gets.chomp
         user = User.find_by(username: user_name)

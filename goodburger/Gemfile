@@ -10,3 +10,4 @@ gem "faker"
 gem 'tty-prompt'
 gem 'artii'
 gem 'rainbow'
+gem 'highline', '~> 1.7', '>= 1.7.8'

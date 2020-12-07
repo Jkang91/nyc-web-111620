@@ -127,9 +127,9 @@ class Application
 
     def purchasing_order
         system 'clear'
-        ascii_helper("Purchase Order")
+        ascii_helper("Order Confirmed")
         user.purchase_current_order
-        puts "Your order has been purchased!"
+        puts "Your order has been purchased! Enjoy!"
         sleep 5
         main_menu
     end
@@ -177,8 +177,11 @@ class Application
 
     def user_stat_message
         puts "Your favorite food is #{user.favorite_food}!"
+        puts "-------"
         puts "You have eaten #{user.total_calories_consumed_ever} total calories at GoodBurger! Congrats, Fatty!"
+        puts "-------"
         puts "I can't believe you've spent $#{user.total_amount_spent_ever.round(2)} at GoodBurger all-time! Better take out a loan!"
+        puts "-------"
     end
 
     def user_stats
@@ -188,10 +191,12 @@ class Application
             puts "Place an order to start seeing your Good Burger stats!"
         elsif user.rewards_member || user.past_orders.length > 10
             puts "You are a GoodBurger Rewards Member! Enjoy your 10% off all orders!"
+            puts "-------"
             user_stat_message
         else
-            user_stat_message
             user.orders_away_from_rewards
+            puts "-------"
+            user_stat_message
         end
         prompt.select (" ") do |menu|
             menu.choice "Main Menu", -> {main_menu}
