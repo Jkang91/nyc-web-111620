@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
 
     def orders_away_from_rewards
         if past_orders.length < 10 && !rewards_member
-            puts "You are only #{10 - past_orders.length} orders away from becoming a GoodBurger Rewards Member! Keep ordering to earn 10% off all future orders!"
+            puts Rainbow("You are only ").orange + Rainbow("#{10 - past_orders.length}").red + Rainbow(" orders away from becoming a GoodBurger Rewards Member! Keep ordering to earn" ).orange + Rainbow(" 10% off all future orders!").red
         end
     end
     
