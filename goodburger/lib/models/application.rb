@@ -7,6 +7,7 @@ class Application
     end
     
     def welcome
+        system 'clear'
         ascii_helper("GoodBurger")
         sleep 2
         puts Rainbow("Welcome to GoodBurger, Home of the GoodBurger!").orange
