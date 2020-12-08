@@ -215,7 +215,7 @@ class Application
                 order.food_orders.each do |food_order|
                     puts Rainbow("#{food_order.food.name} - $#{food_order.food.price}").red
                 end
-                puts Rainbow("Total: $#{order.order_total}").orange
+                puts Rainbow("Total: $#{sprintf('%.2f', order.order_total)}").orange
                 puts "----------"
             end
         end

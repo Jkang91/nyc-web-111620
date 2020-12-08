@@ -4,12 +4,13 @@ class Order < ActiveRecord::Base
     has_many :foods, through: :food_orders
 
     def total_price
-        self.foods.sum(:price)
+        total = self.foods.sum(:price)
+        total.round(2)
     end
 
     def total_price_with_discount
-        var = total_price * 0.90
-        var.round(2)
+        var = (total_price * 0.90)
+        sprintf('%.2f', var)
     end
 
     def total_calories
